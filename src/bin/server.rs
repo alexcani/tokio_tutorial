@@ -9,7 +9,7 @@ type Db = Arc<Mutex<HashMap<String, Bytes>>>;
 #[tokio::main]
 async fn main() {
     let listener = TcpListener::bind("127.0.0.1:6379").await.unwrap();
-    println!("Listening");
+    println!("Listening...");
 
     let db: Db = Arc::new(Mutex::new(HashMap::new()));
 
@@ -29,8 +29,6 @@ async fn process(socket: TcpStream, db: Db) {
 
     let mut connection = Connection::new(socket);
     while let Some(frame) = connection.read_frame().await.unwrap() {
-        println!("Received frame: {}", frame);
-
         let response = match Command::from_frame(frame).unwrap() {
             Set(cmd) => {
                 let mut db = db.lock().unwrap();
