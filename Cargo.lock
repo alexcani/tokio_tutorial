@@ -713,6 +713,7 @@ dependencies = [
 name = "tokio_tutorial_mini_redis"
 version = "0.1.0"
 dependencies = [
+ "bytes",
  "mini-redis",
  "tokio",
 ]
